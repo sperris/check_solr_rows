@@ -10,6 +10,7 @@ BC=/usr/bin/bc
 warning=0
 critical=0
 url=""
+query="*:*"
 
 if [ "$#" == "0" ]; then
 	echo -e "$USAGE"
@@ -59,7 +60,10 @@ case "$1" in
             c0="2"
             fi
         ;;
-	*)
+        -q)
+        query=$2
+        ;;
+        *)
  	echo "$USAGE"
 esac
 
@@ -69,8 +73,8 @@ done
 
 
 
-#solrSize=$(curl http://localhost:8080/solr/db/select/?rows=0\&q=*:* | grep -oPm1 '(?<=numFound=")[^"]*')
-solrSize=$(curl -s $url?rows=0\&q=*:* | grep -oPm1 '(?<=numFound=")[^"]*')
+#solrSize=$(curl http://localhost:8080/solr/db/select/?rows=0\&q=$query | grep -oPm1 '(?<=numFound=")[^"]*')
+solrSize=$(curl -s $url?rows=0\&q=$query | grep -oPm1 '(?<=numFound=")[^"]*')
 
 
 let wc0=$(($critical<$warning?0:4))
