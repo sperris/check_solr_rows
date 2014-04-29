@@ -10,7 +10,7 @@ BC=/usr/bin/bc
 warning=0
 critical=0
 url=""
-query="*:*'"
+query="*:*"
 
 if [ "$#" == "0" ]; then
 	echo -e "$USAGE"
